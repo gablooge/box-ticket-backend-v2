@@ -20,10 +20,12 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from BoxTicket.views import LogoutView
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", TokenObtainPairView.as_view(), name="token_login"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("logout/", LogoutView.as_view(), name="auth_logout"),
 ]
+urlpatterns += staticfiles_urlpatterns()
+

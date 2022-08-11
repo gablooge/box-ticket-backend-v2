@@ -10,11 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
+import secrets
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# TODO: DEFAULT ADMIN PASSWORD
+# load using a file location, ideally
+TEST_PASSWORD = secrets.token_hex(32)
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,9 +32,9 @@ SECRET_KEY = (
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.environ.get("DEBUG") in ["true", "True"] else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -43,6 +49,7 @@ INSTALLED_APPS = [
     "accounts",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
+    "django_filters"
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -78,13 +85,23 @@ TEMPLATES = [
 WSGI_APPLICATION = "BoxTicket.wsgi.application"
 
 
+DB_NAME = os.environ.get("DB_NAME", "postgres")
+DB_USER = os.environ.get("DB_USER", "postgres")
+DB_HOST = os.environ.get("DB_HOST", "localhost")
+DB_PORT = os.environ.get("DB_PORT", "5432")
+DB_PASSWORD = os.environ.get("DB_PASSWORD", "postgres")
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
+        "PASSWORD": DB_PASSWORD,
     }
 }
 
@@ -123,7 +140,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+
+STATIC_URL = "{}/static/".format(os.environ.get("BACKEND_PATH",""))
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'boxticket_static_volume')
+MEDIA_URL = "/media/"
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'boxticket_media_volume')
+
+
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
