@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  db-test:
+    image: postgres:12.3-alpine
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  test:
+    image: test_boxticket:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: boxticket_tests
+    depends_on:
+      - db-test
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_NAME=${DB_NAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db-test
+    command: |-
+        sh -c '
+        cd /boxticket
+        pytest --cov-report term-missing --cov-config=pytest.ini --cov=./'
+
+volumes:
+  -boxticket:
