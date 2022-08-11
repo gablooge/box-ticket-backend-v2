@@ -49,10 +49,10 @@ INSTALLED_APPS = [
     "accounts",
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
-    "django_filters"
+    "django_filters",
 ]
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -141,20 +141,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 
-STATIC_URL = "{}/static/".format(os.environ.get("BACKEND_PATH",""))
+STATIC_URL = "{}/static/".format(os.environ.get("BACKEND_PATH", ""))
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'boxticket_static_volume')
+STATIC_ROOT = os.path.join(BASE_DIR, "boxticket_static_volume")
 MEDIA_URL = "/media/"
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'boxticket_media_volume')
-
-
-
+MEDIA_ROOT = os.path.join(BASE_DIR, "boxticket_media_volume")
 
 
 # Default primary key field type
