@@ -31,7 +31,7 @@ jobs:
         run: flake8
       - name: Run Tests
         env:
-          DB_HOST: postgres
+          DB_HOST: localhost
           DB_USER: postgres
           DB_NAME: github_actions
           DB_PORT: 5432
