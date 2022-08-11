@@ -26,9 +26,6 @@ jobs:
         run: |
           pip install -r requirements/base.txt
           pip install -r requirements/dev.txt
-      - name: Run Lint
-        continue-on-error: true
-        run: flake8
       - name: Run Tests
         env:
           DB_HOST: localhost
@@ -37,3 +34,6 @@ jobs:
           DB_PORT: 5432
           DB_PASSWORD: postgres
         run: pytest --cov-report term-missing --cov-config=pytest.ini --cov=./
+      - name: Run Lint
+        # continue-on-error: true
+        run: flake8
