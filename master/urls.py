@@ -1,4 +1,8 @@
-from django.urls import path
 from master.views import CountryView
+from rest_framework import routers
 
-urlpatterns = [path("GetCountries/", CountryView.as_view(), name="get_countries")]
+router = routers.DefaultRouter()
+
+router.register("GetCountries", CountryView)
+
+urlpatterns = router.urls

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from master.models import Country
 
+
 class CountrySerializers(serializers.ModelSerializer):
     country_id = serializers.SerializerMethodField(read_only=True)
 
