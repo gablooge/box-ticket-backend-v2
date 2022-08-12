@@ -1,9 +1,6 @@
 from rest_framework import serializers
 from master.models import Country
 
-# TitikPresensi
-
-
 class CountrySerializers(serializers.ModelSerializer):
     country_id = serializers.SerializerMethodField(read_only=True)
 
