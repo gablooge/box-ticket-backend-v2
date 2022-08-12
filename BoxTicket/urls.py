@@ -21,6 +21,7 @@ from rest_framework_simplejwt.views import (
 )
 from BoxTicket.views import LogoutView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from master.urls import urlpatterns as master_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -29,3 +30,4 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="auth_logout"),
 ]
 urlpatterns += staticfiles_urlpatterns()
+urlpatterns += master_urlpatterns
