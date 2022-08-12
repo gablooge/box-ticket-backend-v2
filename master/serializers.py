@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from master.models import City, Country, Region
+from master.models import City, Country, Menu, Region
 
 
 class CountrySerializers(serializers.ModelSerializer):
@@ -48,3 +48,19 @@ class CitySerializers(serializers.ModelSerializer):
 
     def get_city_id(self, obj):
         return obj.pk
+
+
+class MenuSerializers(serializers.ModelSerializer):
+    ID = serializers.SerializerMethodField(read_only=True)
+    Description = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Menu
+        fields = ("ID", "Description")
+        read_only_fields = ["ID"]
+
+    def get_ID(self, obj):
+        return obj.pk
+
+    def get_Description(self, obj):
+        return obj.description

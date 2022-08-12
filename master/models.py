@@ -33,3 +33,15 @@ class City(models.Model):
 
     class Meta:
         verbose_name_plural = "Cities"
+
+
+class Menu(models.Model):
+    description = models.CharField(max_length=255)
+    role = models.IntegerField()
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.description
+
+    class Meta:
+        verbose_name_plural = "Menus"
