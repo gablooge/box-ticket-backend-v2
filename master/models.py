@@ -22,3 +22,14 @@ class Region(models.Model):
 
     class Meta:
         verbose_name_plural = "Regions"
+
+
+class City(models.Model):
+    city_name = models.CharField(max_length=255)
+    region = models.ForeignKey(Region, verbose_name="region", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.city_name
+
+    class Meta:
+        verbose_name_plural = "Cities"
