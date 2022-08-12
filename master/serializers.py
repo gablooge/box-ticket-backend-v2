@@ -9,7 +9,7 @@ class CountrySerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Country
-        fields = ("country_id", "name")
+        fields = ("country_id", "country_name")
         read_only_fields = ["country_id"]
 
     def get_country_id(self, obj):
