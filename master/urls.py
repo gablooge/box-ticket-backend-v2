@@ -1,7 +1,9 @@
-from django.urls import path
 from master.views import CountryView, RegionView
+from rest_framework import routers
 
-urlpatterns = [
-    path("GetCountries/", CountryView.as_view(), name="get_countries"),
-    path("GetRegions/", RegionView.as_view(), name="get_regions"),
-]
+router = routers.DefaultRouter()
+
+router.register("GetCountries", CountryView)
+router.register("GetRegions", RegionView)
+
+urlpatterns = router.urls
