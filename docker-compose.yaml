@@ -12,20 +12,16 @@ services:
       - DB_HOST=${DB_HOST}
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - ./boxticket_pg_data:/var/lib/postgresql/data
-    networks:
-      boxticket_network:
-        ipv4_address: 172.18.0.6
-
+      - boxticket_pg_data:/var/lib/postgresql/data
   boxticket:
     image: boxticket:latest
     build:
       context: .
     volumes:
-      - ./boxticket_static_volume:/boxticket/files/static-collected
-      - ./boxticket_media_volume:/boxticket/files/media
-    expose:
-      - 8005
+      - boxticket_static_volume:/boxticket/files/static-collected
+      - boxticket_media_volume:/boxticket/files/media
+    ports:
+      - "8005:8005"
     command: >
       sh -c "python manage.py collectstatic --noinput && 
             ./wait-for-postgres.sh &&
@@ -41,17 +37,8 @@ services:
       - DB_PORT=${DB_PORT}
     depends_on:
       - db
-    networks:
-      boxticket_network:
-        ipv4_address: 172.18.0.5
 volumes:
   boxticket_pg_data:
   boxticket_static_volume:
   boxticket_media_volume:
 
-
-networks:
-  boxticket_network:
-    ipam:
-      config:
-        - subnet: 172.18.0.0/16
