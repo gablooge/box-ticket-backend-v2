@@ -16,16 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
-from BoxTicket.views import LogoutView
+from BoxTicket.views import LogoutView, CustomTokenObtainPairView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from master.urls import urlpatterns as master_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login/", TokenObtainPairView.as_view(), name="token_login"),
+    path("login/", CustomTokenObtainPairView.as_view(), name="token_login"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("logout/", LogoutView.as_view(), name="auth_logout"),
 ]

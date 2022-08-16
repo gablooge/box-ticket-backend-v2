@@ -31,6 +31,8 @@ SECRET_KEY = (
     "django-insecure-d59(!g^9wm)_&38*xn$2t1(9nt4807s38pe+*@gmx(7ux3@41_"  # noqa E501
 )
 
+JWT_SECRET_KEY = os.environ.get("SECRET_KEY", "")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get("DEBUG") in ["true", "True"] else False
 
@@ -173,7 +175,7 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": SECRET_KEY,
+    "SIGNING_KEY": JWT_SECRET_KEY,
     "VERIFYING_KEY": None,
     "AUTH_HEADER_TYPES": ("Bearer",),
     "USER_ID_FIELD": "id",
@@ -186,4 +188,4 @@ SIMPLE_JWT = {
 }
 
 USE_X_FORWARDED_HOST = True
-FORCE_SCRIPT_NAME = os.environ.get("BACKEND_PATH",None)
+FORCE_SCRIPT_NAME = os.environ.get("BACKEND_PATH", None)
