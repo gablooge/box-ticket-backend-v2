@@ -14,7 +14,7 @@ def test_login_superuser_valid_with_email(client, django_db_setup):
     )
 
     assert (
-        decode(resp.json()["access"], settings.SECRET_KEY, algorithms=["HS256"])[
+        decode(resp.json()["access"], settings.JWT_SECRET_KEY, algorithms=["HS256"])[
             "user_id"
         ]
         == superuser.id
@@ -32,7 +32,7 @@ def test_login_user_valid(client, django_db_setup):
     )
 
     assert (
-        decode(resp.json()["access"], settings.SECRET_KEY, algorithms=["HS256"])[
+        decode(resp.json()["access"], settings.JWT_SECRET_KEY, algorithms=["HS256"])[
             "user_id"
         ]
         == user.id
