@@ -184,3 +184,6 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(days=7),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=7),
 }
+
+USE_X_FORWARDED_HOST = True
+FORCE_SCRIPT_NAME = os.environ.get("BACKEND_PATH",None)
