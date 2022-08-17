@@ -19,9 +19,10 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
+    role_id = models.IntegerField(verbose_name="role", null=True)
     city_id = models.IntegerField(null=True, blank=True, verbose_name="city id")
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "first_name", "last_name"]
+    REQUIRED_FIELDS = ["username", "first_name", "last_name", "role_id"]
 
     def __str__(self):
         return self.email
